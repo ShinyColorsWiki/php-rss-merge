@@ -1,0 +1,6 @@
+*.xml
+*.phar
+vendor/
+.idea/
+cache/
+*.lock
