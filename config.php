@@ -1,12 +1,12 @@
 <?php
-    require ('./vendor/autoload.php');
+    require './vendor/autoload.php';
     include './include.php';
 
     use League\Flysystem\Adapter\Local;
     use League\Flysystem\Filesystem;
     use Cache\Adapter\Filesystem\FilesystemCachePool;
 
-    $filesystemAdapter = new Local(__DIR__.'/');
+    $filesystemAdapter = new Local(__DIR__ . '/');
     $filesystem        = new Filesystem($filesystemAdapter);
 
     $cache = new FilesystemCachePool($filesystem);
@@ -25,16 +25,9 @@
             "https://idolmaster.jp/blog/?cat=103&paged=6&feed=rss2",
             "https://idolmaster.jp/blog/?cat=103&paged=7&feed=rss2",
             "https://idolmaster.jp/blog/?cat=103&paged=8&feed=rss2",
-            "https://idolmaster.jp/blog/?cat=103&paged=9&feed=rss2",
-            "https://idolmaster.jp/blog/?cat=103&paged=10&feed=rss2",
-            "https://idolmaster.jp/blog/?cat=103&paged=11&feed=rss2",
-            "https://idolmaster.jp/blog/?cat=103&paged=12&feed=rss2",
-            "https://idolmaster.jp/blog/?cat=103&paged=13&feed=rss2",
-            "https://idolmaster.jp/blog/?cat=103&paged=14&feed=rss2",
-            "https://idolmaster.jp/blog/?cat=103&paged=15&feed=rss2",
-            "https://idolmaster.jp/blog/?cat=103&paged=16&feed=rss2",
-        ],
 
-        3600, 'UTF-8', 'ja'
-    )
-?>
+        ],
+        3600,
+        'UTF-8',
+        'ja'
+    );

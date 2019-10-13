@@ -6,6 +6,17 @@
         "cache/array-adapter": "^1.0",
         "cache/filesystem-adapter": "^1.0"
     },
+    "require-dev": {
+        "jakub-onderka/php-parallel-lint": "1.0.0",
+        "jakub-onderka/php-console-highlighter": "0.3.2"
+	},
+	"scripts": {
+		"test": [
+			"parallel-lint . --exclude vendor",
+			"phpcs -p -s"
+		],
+		"fix": "phpcbf"
+	},
     "license": "MIT",
     "authors": [
         {
