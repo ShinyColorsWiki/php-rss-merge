@@ -11,7 +11,8 @@ function normal()
     echo '<br /><br />';
     echo '<style>table, th, td { border: 1px solid black; }</style>';
     foreach ($feed as $f) {
-        $feed_url = "https://$_SERVER[HTTP_HOST]" . strtok($_SERVER['REQUEST_URI'], '?') . '?feed=' . $f->id;
+        $feed_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") .
+            "://$_SERVER[HTTP_HOST]" . strtok($_SERVER['REQUEST_URI'], '?') . '?feed=' . $f->id;
         echo '<table>';
         echo '<tr>';
         echo '<th>Key</th>';
@@ -57,10 +58,9 @@ function normal()
 }
 
 $f = $_GET['feed'];
-if ($f) {
-    if (array_key_exists($f, $feed)) {
-        $builder = new Builder($feed);
-
+if (isset($f)) {
+    $builder = new Builder($feed);
+    if (array_key_exists($f, $builder->lists)) {
         try {
             $output = $builder->generateOutput($_GET['feed']);
             header('Content-Type: application/rss+xml; charset=UTF-8');
@@ -76,6 +76,8 @@ if ($f) {
         echo '<h1>No Feed Found. Check list</h1>';
         normal();
     }
+    unset($builder);
 } else {
     normal();
 }
+unset($f);

@@ -25,7 +25,6 @@
             "https://idolmaster.jp/blog/?cat=103&paged=6&feed=rss2",
             "https://idolmaster.jp/blog/?cat=103&paged=7&feed=rss2",
             "https://idolmaster.jp/blog/?cat=103&paged=8&feed=rss2",
-
         ],
         3600,
         'UTF-8',
