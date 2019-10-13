@@ -56,16 +56,24 @@ function normal()
     echo '<br /> <br />By <a href="' . $wiki_url . '">ShinyWiki</a>';
 }
 
+$f = $_GET['feed'];
+if ($f) {
+    if (array_key_exists($f, $feed)) {
+        $builder = new Builder($feed);
 
-if ($_GET['feed']) {
-    $builder = new Builder($feed);
-    try {
-        $output = $builder->generateOutput($_GET['feed']);
-        header('Content-Type: application/rss+xml; charset=UTF-8');
-        echo $output;
-    } catch (Exception $e) {
-        echo $e->getMessage();
-        echo '<h1>Something went wrong</h1>';
+        try {
+            $output = $builder->generateOutput($_GET['feed']);
+            header('Content-Type: application/rss+xml; charset=UTF-8');
+            echo $output;
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo $e->getMessage();
+            echo '<h1>Something went wrong.</h1>';
+            normal();
+        }
+    } else {
+        http_response_code(404);
+        echo '<h1>No Feed Found. Check list</h1>';
         normal();
     }
 } else {

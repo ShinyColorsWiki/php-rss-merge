@@ -1,4 +1,10 @@
 <?php
+/** @noinspection PhpUndefinedMethodInspection */
+/** @noinspection PhpUndefinedFieldInspection */
+
+/**
+ * Class RSS
+ */
 class RSS
 {
     /**
@@ -50,6 +56,17 @@ class RSS
     public $lang;
 
 
+    /**
+     * RSS constructor.
+     * @param $id
+     * @param $title
+     * @param $link
+     * @param $description
+     * @param $feeds
+     * @param int $ttl
+     * @param string $encoding
+     * @param string $lang
+     */
     public function __construct(
         $id,
         $title,
@@ -71,18 +88,36 @@ class RSS
     }
 }
 
+/**
+ * Class InternalCache
+ */
 class InternalCache
 {
 
+    /**
+     * @var string
+     */
     public $id;
+    /**
+     * @var int
+     */
     public $ttl;
 
+    /**
+     * InternalCache constructor.
+     * @param string $id
+     * @param int $ttl
+     */
     public function __construct(string $id, int $ttl = 3600)
     {
         $this->id = $id;
         $this->ttl = $ttl;
     }
 
+    /**
+     * @return bool
+     * @throws \Psr\Cache\InvalidArgumentException
+     */
     public function checkCache()
     {
         global $cache;
@@ -90,6 +125,10 @@ class InternalCache
         return $cache->hasItem($this->id) && $item->isHit();
     }
 
+    /**
+     * @param string $string
+     * @throws \Psr\Cache\InvalidArgumentException
+     */
     public function setCache(string $string)
     {
         global $cache;
@@ -99,6 +138,10 @@ class InternalCache
         $cache->save($item);
     }
 
+    /**
+     * @return mixed|void|null
+     * @throws \Psr\Cache\InvalidArgumentException
+     */
     public function getCache()
     {
         global $cache;
@@ -108,6 +151,9 @@ class InternalCache
 }
 
 
+/**
+ * Class Merger
+ */
 class Merger
 {
     /**
@@ -122,8 +168,15 @@ class Merger
      */
     public $feeds;
 
+    /**
+     * @var InternalCache
+     */
     public $cache;
 
+    /**
+     * Merger constructor.
+     * @param RSS $rss
+     */
     public function __construct(RSS $rss)
     {
         global $cache;
@@ -131,6 +184,9 @@ class Merger
         $this->cache = new InternalCache($rss->id);
     }
 
+    /**
+     * @return array
+     */
     public function getFeeds()
     {
         $urls = $this->rss->feeds;
@@ -154,6 +210,11 @@ class Merger
         return $items;
     }
 
+    /**
+     * @param $a
+     * @param $b
+     * @return int
+     */
     private static function sortByDate($a, $b)
     {
         if ($a['date'] == $b['date']) {
@@ -166,10 +227,20 @@ class Merger
     }
 }
 
+/**
+ * Class Builder
+ */
 class Builder
 {
+    /**
+     * @var array
+     */
     public $lists;
 
+    /**
+     * Builder constructor.
+     * @param array $rss_array
+     */
     public function __construct(array $rss_array)
     {
         $lists = array();
@@ -179,6 +250,10 @@ class Builder
         $this->lists = $lists;
     }
 
+    /**
+     * @param string $id
+     * @return string
+     */
     public function generateOutput(string $id)
     {
         $merger = $this->lists[$id];
@@ -203,7 +278,7 @@ class Builder
             ]);
         }
 
-        $result = join("\n", [
+        $result = join("\n", array(
             '<?xml version="1.0" encoding="' . $rss->encoding . '"?>',
             '<rss version="2.0">',
             "\t" . '<channel>',
@@ -217,7 +292,7 @@ class Builder
             join("\n", $items),
             "\t" . '</channel>',
             '</rss>'
-        ]);
+        ));
 
         $cache->setCache($result);
         return $result;
