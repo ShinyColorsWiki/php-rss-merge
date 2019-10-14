@@ -108,7 +108,7 @@ class InternalCache
      * @param string $id
      * @param int $ttl
      */
-    public function __construct(string $id, int $ttl = 3600)
+    public function __construct($id, $ttl = 3600)
     {
         $this->id = $id;
         $this->ttl = $ttl;
@@ -129,7 +129,7 @@ class InternalCache
      * @param string $string
      * @throws \Psr\Cache\InvalidArgumentException
      */
-    public function setCache(string $string)
+    public function setCache($string)
     {
         global $cache;
         $item = $cache->getItem($this->id);
@@ -177,7 +177,7 @@ class Merger
      * Merger constructor.
      * @param RSS $rss
      */
-    public function __construct(RSS $rss)
+    public function __construct($rss)
     {
         global $cache;
         $this->rss = $rss;
@@ -254,7 +254,7 @@ class Builder
      * @param string $id
      * @return string
      */
-    public function generateOutput(string $id)
+    public function generateOutput($id)
     {
         $merger = $this->lists[$id];
         $rss = $merger->rss;

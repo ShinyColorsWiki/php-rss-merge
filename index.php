@@ -62,7 +62,7 @@ if (isset($f)) {
     $builder = new Builder($feed);
     if (array_key_exists($f, $builder->lists)) {
         try {
-            $output = $builder->generateOutput($_GET['feed']);
+            $output = $builder->generateOutput($f);
             header('Content-Type: application/rss+xml; charset=UTF-8');
             echo $output;
         } catch (Exception $e) {
