@@ -2,9 +2,12 @@
     "name": "shinywiki/php-rss-merge",
     "description": "A Simple RSS feed merger",
     "type": "project",
+    "version": "0.0.1-dev",
     "require": {
         "cache/filesystem-adapter": "^1.0",
-        "ext-simplexml": "*"
+        "ext-simplexml": "*",
+        "zordius/lightncandy": "^1.2",
+        "monolog/monolog": "^2.0"
     },
     "require-dev": {
         "phpcompatibility/php-compatibility": "*",
@@ -13,8 +16,14 @@
         "jakub-onderka/php-console-highlighter": "0.3.2"
 	},
 	"scripts": {
-        "post-install-cmd": "\"vendor/bin/phpcs\" --config-set installed_path vendor/phpcompatibility/php-compatibility",
-        "post-update-cmd":  "\"vendor/bin/phpcs\" --config-set installed_path vendor/phpcompatibility/php-compatibility",
+        "post-install-cmd": [
+          "\"vendor/bin/phpcs\" --config-set installed_path vendor/phpcompatibility/php-compatibility",
+          "php build/template.php"
+        ],
+        "post-update-cmd":   [
+          "\"vendor/bin/phpcs\" --config-set installed_path vendor/phpcompatibility/php-compatibility",
+          "php build/template.php"
+        ],
 		"test": [
 			"parallel-lint . --exclude vendor",
 			"phpcs -p -s"
@@ -29,5 +38,11 @@
         }
     ],
     "prefer-stable": true,
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "autoload": {
+        "exclude-from-classmap": ["/template/", "/build/"],
+        "psr-4": {
+            "RSSMerger\\": "src/"
+        }
+    }
 }

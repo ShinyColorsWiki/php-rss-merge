@@ -3,3 +3,4 @@ vendor/
 .idea/
 cache/
 *.lock
+src/template/*.php

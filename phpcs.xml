@@ -1,13 +1,17 @@
 <?xml version="1.0"?>
 <ruleset>
-    <file>./index.php</file>
-    <file>./include.php</file>
-    <file>./config.php</file>
+    <file>index.php</file>
+    <file>feed.php</file>
+    <file>config.php</file>
+    <file>src</file>
+    <file>build</file>
+
+    <exclude-pattern>*/src/template/*</exclude-pattern>
 
     <config name="installed_paths" value="vendor/phpcompatibility/php-compatibility"/>
 
     <rule ref="PHPCompatibility"/>
-    <config name="testVersion" value="5.6"/>
+    <config name="testVersion" value="7.0"/>
 
     <rule ref="PSR12">
         <exclude name="PSR1.Files.SideEffects.FoundWithSymbols"/>

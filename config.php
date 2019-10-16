@@ -1,7 +1,7 @@
 <?php
-    require './vendor/autoload.php';
-    include './include.php';
+    require __DIR__ . '/vendor/autoload.php';
 
+    use RSSMerger\RSS;
     use League\Flysystem\Adapter\Local;
     use League\Flysystem\Filesystem;
     use Cache\Adapter\Filesystem\FilesystemCachePool;
@@ -10,6 +10,9 @@
     $filesystem        = new Filesystem($filesystemAdapter);
 
     $cache = new FilesystemCachePool($filesystem);
+
+    $siteName = "ShinyWiki";
+    $siteUrl = "https://wiki.shinycolo.rs/wiki/Main_Page";
 
     $feed[] = new RSS(
         "sc_imasblog",

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{generator}}</title>
+</head>
+<style>
+    table, th, td { 
+        border: 1px solid black; 
+    }
+</style>
+<body>
+    <h1>RSS Merge Service</h1>
+    <h3>Currently serving {{count_number}} services.</h3>
+
+    {{#feeds}}
+    <br />
+    <table>
+        <tr>
+            <th>Key</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Title</td>
+            <td>{{title}}</td>
+        </tr>
+        <tr>
+            <td>Link</td>
+            <td>{{link}}</td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td>{{description}}</td>
+        </tr>
+        <tr>
+            <td>Time-to-Live</td>
+            <td>{{ttl}}</td>
+        </tr>
+        <tr>
+            <td>Encoding</td>
+            <td>{{encoding}}</td>
+        </tr>
+        <tr>
+            <td>Language</td>
+            <td>{{lang}}</td>
+        </tr>
+        <tr>
+            <td>Feed Sources</td>
+            <td>{{{feeds}}}</td>
+        </tr>
+        <tr>
+            <td>Feed Url</td>
+            <td><a href="{{feed_url}}">{{feed_url}}</a></td>
+        </tr>
+    </table>
+    <br />
+    {{/feeds}}
+
+    <footer>
+        <p>By <a href="{{siteUrl}}">{{siteName}}</a></p>
+        <p>Running <b>{{generator}}</b></p>
+    </footer>
+</body>
+</html>
