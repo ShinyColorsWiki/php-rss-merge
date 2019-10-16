@@ -7,73 +7,92 @@ namespace RSSMerger;
  */
 class Merger
 {
+
     /**
      * RSS value
+     *
      * @var RSS
      */
     public $rss;
 
     /**
      * Retrieved RSS feeds
+     *
      * @var array
      */
     public $feeds;
 
     /**
+     * Cache.
+     *
      * @var InternalCache
      */
     public $cache;
 
-    /**
-     * Merger constructor.
-     * @param RSS $rss
-     */
-    public function __construct($rss)
-    {
-        global $cache;
-        $this->rss = $rss;
-        $this->cache = new InternalCache($rss->id);
-    }
 
     /**
+     * Merger constructor.
+     *
+     * @param RSS $rss RSS.
+     */
+    public function __construct(RSS $rss)
+    {
+        $this->rss   = $rss;
+        $this->cache = new InternalCache($rss->id);
+
+    }//end __construct()
+
+
+    /**
+     * Get Feeds
+     *
      * @return array
      */
     public function getFeeds()
     {
-        $urls = $this->rss->feeds;
-        $items = array();
+        $urls  = $this->rss->feeds;
+        $items = [];
         foreach ($urls as $url) {
             $xml = simplexml_load_file($url, null, false);
-            if ($xml) {
+            if ($xml !== null) {
                 foreach ($xml->channel->item as $item) {
-                    $new['title'] = $item->title;
-                    $new['link'] = $item->link;
+                    $new['title']       = $item->title;
+                    $new['link']        = $item->link;
                     $new['description'] = $item->description;
-                    $new['pubDate'] = $item->pubDate;
-                    $new['guid'] = $item->guid;
-                    $new['date'] = strtotime($item->pubDate);
+                    $new['pubDate']     = $item->pubDate;
+                    $new['guid']        = $item->guid;
+                    $new['date']        = strtotime($item->pubDate);
 
                     array_push($items, $new);
                 }
             }
         }
-        usort($items, array(&$this, 'sortByDate'));
+
+        usort($items, [&$this, 'sortByDate']);
         return $items;
-    }
+
+    }//end getFeeds()
+
 
     /**
-     * @param $a
-     * @param $b
-     * @return int
+     * Sort by date
+     *
+     * @param array $a A.
+     * @param array $b B.
+     *
+     * @return integer Sort result.
      */
-    private static function sortByDate($a, $b)
+    private static function sortByDate(array $a, array $b)
     {
-        if ($a['date'] == $b['date']) {
+        if ($a['date'] === $b['date']) {
             return 0;
-        } elseif ($a['date'] > $b['date']) {
+        } else if ($a['date'] > $b['date']) {
             return -1;
         } else {
             return 1;
         }
-    }
-}
+
+    }//end sortByDate()
+
+
+}//end class

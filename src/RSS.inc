@@ -7,50 +7,59 @@ namespace RSSMerger;
  */
 class RSS
 {
+
     /**
      * An identifier
+     *
      * @var string
      */
     public $id;
 
     /**
      * A site title
+     *
      * @var string
      */
     public $title;
 
     /**
      * A site link
+     *
      * @var string
      */
     public $link;
 
     /**
      * A site description
+     *
      * @var string
      */
     public $description;
 
     /**
      * Links of feed
+     *
      * @var array
      */
     public $feeds;
 
     /**
      * A time to live value
-     * @var int
+     *
+     * @var integer
      */
     public $ttl;
 
     /**
      * A xml encoding
+     *
      * @var string
      */
     public $encoding;
 
     /**
      * A language code
+     *
      * @var string
      */
     public $lang;
@@ -58,32 +67,36 @@ class RSS
 
     /**
      * RSS constructor.
-     * @param $id
-     * @param $title
-     * @param $link
-     * @param $description
-     * @param $feeds
-     * @param int $ttl
-     * @param string $encoding
-     * @param string $lang
+     *
+     * @param string   $id          ID of RSS.
+     * @param string   $title       RSS Title.
+     * @param string   $link        RSS Link.
+     * @param string   $description RSS Description.
+     * @param string[] $feeds       RSS Feed List.
+     * @param integer  $ttl         Time-to-live.
+     * @param string   $encoding    Encoding of XML.
+     * @param string   $lang        Language of RSS.
      */
     public function __construct(
-        $id,
-        $title,
-        $link,
-        $description,
-        $feeds,
-        $ttl = 3600,
-        $encoding = 'UTF-8',
-        $lang = 'en'
+        string $id,
+        string $title,
+        string $link,
+        string $description,
+        array $feeds,
+        int $ttl=3600,
+        string $encoding='UTF-8',
+        string $lang='en'
     ) {
-        $this->id = $id;
-        $this->title = $title;
-        $this->link = $link;
+        $this->id          = $id;
+        $this->title       = $title;
+        $this->link        = $link;
         $this->description = $description;
-        $this->feeds = $feeds;
-        $this->ttl = $ttl;
-        $this->encoding = $encoding;
-        $this->lang = $lang;
-    }
-}
+        $this->feeds       = $feeds;
+        $this->ttl         = $ttl;
+        $this->encoding    = $encoding;
+        $this->lang        = $lang;
+
+    }//end __construct()
+
+
+}//end class

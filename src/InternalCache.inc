@@ -9,57 +9,79 @@ class InternalCache
 {
 
     /**
+     * ID of cache
+     *
      * @var string
      */
     public $id;
+
     /**
-     * @var int
+     * Expires time
+     *
+     * @var integer
      */
     public $ttl;
 
-    /**
-     * InternalCache constructor.
-     * @param string $id
-     * @param int $ttl
-     */
-    public function __construct($id, $ttl = 3600)
-    {
-        $this->id = $id;
-        $this->ttl = $ttl;
-    }
 
     /**
-     * @return bool
-     * @throws \Psr\Cache\InvalidArgumentException
+     * InternalCache constructor.
+     *
+     * @param string  $id  ID of cache.
+     * @param integer $ttl Expires time.
+     */
+    public function __construct(string $id, int $ttl=3600)
+    {
+        $this->id  = $id;
+        $this->ttl = $ttl;
+
+    }//end __construct()
+
+
+    /**
+     * Check cache
+     *
+     * @return boolean
      */
     public function checkCache()
     {
-        global $cache;
-        $item = $cache->getItem($this->id);
-        return $cache->hasItem($this->id) && $item->isHit();
-    }
+        $item = $GLOBALS['cache']->getItem($this->id);
+        if ($GLOBALS['cache']->hasItem($this->id) === true && $item->isHit() === true) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }//end checkCache()
+
 
     /**
-     * @param string $string
-     * @throws \Psr\Cache\InvalidArgumentException
+     * Set Cache
+     *
+     * @param string $string Data.
+     *
+     * @return void
      */
-    public function setCache($string)
+    public function setCache(string $string)
     {
-        global $cache;
-        $item = $cache->getItem($this->id);
+        $item = $GLOBALS['cache']->getItem($this->id);
         $item->set($string);
         $item->expiresAfter($this->ttl);
-        $cache->save($item);
-    }
+        $GLOBALS['cache']->save($item);
+
+    }//end setCache()
+
 
     /**
+     * Get Cache
+     *
      * @return mixed|void|null
-     * @throws \Psr\Cache\InvalidArgumentException
      */
     public function getCache()
     {
-        global $cache;
-        $item = $cache->getItem($this->id);
+        $item = $GLOBALS['cache']->getItem($this->id);
         return $item->get();
-    }
-}
+
+    }//end getCache()
+
+
+}//end class
