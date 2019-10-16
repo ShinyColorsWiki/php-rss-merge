@@ -6,13 +6,16 @@
     <file>src</file>
     <file>build</file>
 
+    <!-- Automatically generated templates -->
     <exclude-pattern>*/src/template/*</exclude-pattern>
-
+    
     <config name="installed_paths" value="vendor/phpcompatibility/php-compatibility"/>
 
     <rule ref="PHPCompatibility"/>
     <config name="testVersion" value="7.1"/>
 
     <rule ref="Squiz">
+        <!-- not necessary for now -->
+        <exclude name="Squiz.Commenting.FileComment.Missing" />
     </rule>
 </ruleset>
