@@ -13,21 +13,21 @@ class Merger
      *
      * @var RSS
      */
-    public $rss;
+    public RSS $rss;
 
     /**
      * Retrieved RSS feeds
      *
      * @var array
      */
-    public $feeds;
+    public array $feeds;
 
     /**
      * Cache.
      *
      * @var InternalCache
      */
-    public $cache;
+    public InternalCache $cache;
 
 
     /**
@@ -48,7 +48,7 @@ class Merger
      *
      * @return array
      */
-    public function getFeeds()
+    public function getFeeds() : array
     {
         $urls  = $this->rss->feeds;
         $items = [];
@@ -82,7 +82,7 @@ class Merger
      *
      * @return integer Sort result.
      */
-    private static function sortByDate(array $a, array $b)
+    private static function sortByDate(array $a, array $b) : int
     {
         if ($a['date'] === $b['date']) {
             return 0;

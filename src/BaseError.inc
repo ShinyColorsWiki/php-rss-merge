@@ -15,7 +15,7 @@ class BaseError
      *
      * @var Error|null error
      */
-    public $error;
+    public Error $error;
 
 
     /**
@@ -23,7 +23,7 @@ class BaseError
      *
      * @param Error|null $error Error.
      */
-    public function __construct(?Error $error)
+    public function __construct(?Error $error=null)
     {
         $this->error = $error;
         $this->logError();
@@ -39,7 +39,7 @@ class BaseError
      *
      * @return void
      */
-    public function renderHTML(int $code=500, string $message=null)
+    public function renderHTML(int $code=500, string $message=null) : void
     {
         http_response_code($code);
         $renderer = include 'template/error.php';
@@ -61,7 +61,7 @@ class BaseError
      *
      * @return void
      */
-    public function renderXML(int $code=500, string $message=null)
+    public function renderXML(int $code=500, string $message=null) : void
     {
         http_response_code($code);
         header('Content-Type: application/xml; charset=UTF-8');
@@ -101,7 +101,7 @@ class BaseError
      *
      * @return void
      */
-    private function logError()
+    private function logError() : void
     {
         $GLOBALS['log']->error($this->error);
 

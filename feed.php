@@ -1,4 +1,5 @@
 <?php
+
 require './config.php';
 
 use RSSMerger\{Builder, BaseError};
@@ -18,13 +19,13 @@ if (isset($f) === true) {
             unset($output);
         }
     } else {
-        $error = new BaseError(null);
+        $error = new BaseError();
         $error->renderXML(404, 'Not Found');
     }
 
     unset($builder);
 } else {
-    $error = new BaseError(null);
+    $error = new BaseError();
     $error->renderXML(404, 'Not Found');
 }//end if
 

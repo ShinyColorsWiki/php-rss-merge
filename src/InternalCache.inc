@@ -13,14 +13,14 @@ class InternalCache
      *
      * @var string
      */
-    public $id;
+    public string $id;
 
     /**
      * Expires time
      *
      * @var integer
      */
-    public $ttl;
+    public int $ttl;
 
 
     /**
@@ -42,7 +42,7 @@ class InternalCache
      *
      * @return boolean
      */
-    public function checkCache()
+    public function checkCache() : bool
     {
         $item = $GLOBALS['cache']->getItem($this->id);
         if ($GLOBALS['cache']->hasItem($this->id) === true && $item->isHit() === true) {
@@ -61,7 +61,7 @@ class InternalCache
      *
      * @return void
      */
-    public function setCache(string $string)
+    public function setCache(string $string) : void
     {
         $item = $GLOBALS['cache']->getItem($this->id);
         $item->set($string);
@@ -74,7 +74,7 @@ class InternalCache
     /**
      * Get Cache
      *
-     * @return mixed|void|null
+     * @return string|mixed|void|null
      */
     public function getCache()
     {

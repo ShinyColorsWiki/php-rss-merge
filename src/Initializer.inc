@@ -17,7 +17,7 @@ class Initializer
      *
      * @return void
      */
-    public static function initialize()
+    public static function initialize() : void
     {
         self::logSetup();
 
@@ -29,7 +29,7 @@ class Initializer
      *
      * @return void;
      */
-    private static function logSetup()
+    private static function logSetup() : void
     {
         $logger = new Logger('rss-merger');
 

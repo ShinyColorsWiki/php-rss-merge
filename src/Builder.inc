@@ -14,7 +14,7 @@ class Builder
      *
      * @var Merger[]
      */
-    public $lists;
+    public array $lists;
 
 
     /**

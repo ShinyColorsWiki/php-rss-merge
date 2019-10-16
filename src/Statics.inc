@@ -13,14 +13,14 @@ class Statics
      *
      * @var string
      */
-    protected static $generatorName = 'PHP RSS Merger';
+    protected static string $generatorName = 'PHP RSS Merger';
 
     /**
      * Program version
      *
      * @var string
      */
-    protected static $generatorVersion = '0.0.1-dev';
+    protected static string $generatorVersion = '0.0.1-dev';
 
 
     /**
@@ -57,7 +57,7 @@ class Statics
      *
      * @return string
      */
-    private static function requestType()
+    private static function requestType() : string
     {
         if (isset($_SERVER['HTTPS']) === true && ($_SERVER['HTTPS'] === 'on')) {
             return 'https';
@@ -75,7 +75,7 @@ class Statics
      *
      * @return void
      */
-    public function setLocation(?string $location)
+    public function setLocation(?string $location) : void
     {
         if ($location === null) {
             header('Location: '.self::currentDirectoryUrl());
@@ -93,7 +93,7 @@ class Statics
      *
      * @return array
      */
-    public static function beforeRenderFeeds(array $rss)
+    public static function beforeRenderFeeds(array $rss) : array
     {
         foreach ($rss as &$f) {
             $feed             = (array) $f;
