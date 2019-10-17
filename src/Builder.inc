@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RSSMerger;
 
-use const DATE_RFC822;
+use const DATE_RSS;
 use function date;
 
 /**
@@ -58,7 +58,7 @@ class Builder
             'atomlink'    => Statics::getFeedUrl($id),
             'link'        => $rss->link,
             'description' => $rss->description,
-            'buildDate'   => date(DATE_RFC822),
+            'buildDate'   => date(DATE_RSS),
             'pubDate'     => $feeds[0]['pubDate'],
             'ttl'         => $rss->ttl,
             'generator'   => Statics::GENERATOR(),
