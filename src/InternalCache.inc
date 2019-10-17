@@ -16,14 +16,14 @@ class InternalCache
      *
      * @var string
      */
-    public $id;
+    public string $id;
 
     /**
      * Expires time
      *
      * @var int
      */
-    public $ttl;
+    public int $ttl;
 
 
     /**

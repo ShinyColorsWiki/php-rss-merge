@@ -14,7 +14,7 @@
     <config name="installed_paths" value="vendor/phpcompatibility/php-compatibility,vendor/doctrine/coding-standard/lib,vendor/slevomat/coding-standard"/>
 
     <rule ref="PHPCompatibility"/>
-    <config name="testVersion" value="7.1"/>
+    <config name="testVersion" value="7.4"/>
 
     <rule ref="Doctrine">
         <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.UselessReturnAnnotation"/>

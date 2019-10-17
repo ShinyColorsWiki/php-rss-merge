@@ -16,9 +16,9 @@ class BaseError
     /**
      * Error type.
      *
-     * @var Error|null error
+     * @var Error|nulll error
      */
-    public $error;
+    public ?Error $error;
 
 
     /**

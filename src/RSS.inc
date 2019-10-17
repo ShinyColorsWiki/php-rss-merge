@@ -19,63 +19,63 @@ class RSS
      *
      * @var string
      */
-    public $id;
+    public string $id;
 
     /**
      * A site title
      *
      * @var string
      */
-    public $title;
+    public string $title;
 
     /**
      * A site link
      *
      * @var string
      */
-    public $link;
+    public string $link;
 
     /**
      * A site description
      *
      * @var string
      */
-    public $description;
+    public string $description;
 
     /**
      * Links of feed
      *
      * @var string[]
      */
-    public $feeds;
+    public array $feeds;
 
     /**
      * A time to live value
      *
      * @var int
      */
-    public $ttl;
+    public int $ttl;
 
     /**
      * A xml encoding
      *
      * @var string
      */
-    public $encoding;
+    public string $encoding;
 
     /**
      * A language code
      *
      * @var string
      */
-    public $lang;
+    public string $lang;
 
     /**
      * Cache.
      *
      * @var InternalCache
      */
-    public $cache;
+    public InternalCache $cache;
 
 
 

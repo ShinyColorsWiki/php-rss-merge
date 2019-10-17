@@ -17,7 +17,7 @@ class Builder
      *
      * @var RSS[]
      */
-    public $lists;
+    public array $lists;
 
 
     /**

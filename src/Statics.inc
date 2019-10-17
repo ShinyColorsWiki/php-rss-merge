@@ -22,14 +22,14 @@ class Statics
      *
      * @var string
      */
-    protected static $generatorName = 'PHP RSS Merger';
+    protected static string $generatorName = 'PHP RSS Merger';
 
     /**
      * Program version
      *
      * @var string
      */
-    protected static $generatorVersion = '0.0.1-dev';
+    protected static string $generatorVersion = '0.0.1-dev';
 
 
     /**
