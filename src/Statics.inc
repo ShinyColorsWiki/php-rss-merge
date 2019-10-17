@@ -51,11 +51,8 @@ class Statics
     public static function currentDirectoryUrl() : string
     {
         $path = str_replace($_SERVER['DOCUMENT_ROOT'], '', realpath(__DIR__ . '/../'));
-        if (strpos($path, 0) !== '/') {
-            $path = '/' . $path;
-        }
 
-        return self::requestType() . '://' . $_SERVER['HTTP_HOST'] . str_replace('\\', '/', $path);
+        return self::requestType() . '://' . $_SERVER['HTTP_HOST'] . str_replace('\\', '/', $path) . '/';
     }
 
 
