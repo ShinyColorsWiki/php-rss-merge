@@ -87,7 +87,7 @@ class Statics
 
     public static function getFeedUrl(string $id) : string
     {
-        return self::currentDirectoryUrl() . 'feed.php?feed=' . $id;
+        return self::currentDirectoryUrl() . 'feed.php?id=' . $id;
     }
 
     /**

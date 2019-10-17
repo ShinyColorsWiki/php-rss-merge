@@ -7,7 +7,7 @@ require './config.php';
 use RSSMerger\BaseError;
 use RSSMerger\Builder;
 
-$f = $_GET['feed'];
+$f = $_GET['id'];
 if (isset($f) === true) {
     $builder = new Builder($GLOBALS['feed']);
     if (array_key_exists($f, $builder->lists) === true) {
