@@ -15,7 +15,7 @@ class Builder
     /**
      * List of RSS
      *
-     * @var Merger[]
+     * @var RSS[]
      */
     public $lists;
 
@@ -27,7 +27,7 @@ class Builder
     {
         $lists = [];
         foreach ($rssArray as $rss) {
-            $lists[$rss->id] = new Merger($rss);
+            $lists[$rss->id] = $rss;
         }
 
         $this->lists = $lists;
@@ -43,15 +43,14 @@ class Builder
      */
     public function generateOutput(string $id) : string
     {
-        $merger = $this->lists[$id];
-        $rss    = $merger->rss;
-        $cache  = $merger->cache;
+        $rss   = $this->lists[$id];
+        $cache = $rss->cache;
 
         if ($cache->checkCache() === true && isset($_GET['force']) === false) {
             return $cache->getCache();
         }
 
-        $feeds = $merger->getFeeds();
+        $feeds = $rss->getFeeds();
 
         $result = [
             'encoding'    => $rss->encoding,

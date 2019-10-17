@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace RSSMerger;
 
+use Closure;
+use SimpleXMLElement;
 use function header;
 use function implode;
 use function realpath;
@@ -108,5 +110,42 @@ class Statics
         }
 
         return $rss;
+    }
+
+    /**
+     * Get Namespace's Child
+     *
+     * @param  SimpleXMLElement $xml       XML Element.
+     * @param  string           $namespace Namspace name.
+     * @param  string           $nodeName  Child Node name.
+     *
+     * @return SimpleXMLElement
+     */
+    public static function getNsChild(SimpleXMLElement $xml, string $namespace, string $nodeName) : SimpleXMLElement
+    {
+        $ns = $xml->getNamespaces(true);
+        return $xml->children($ns[$namespace])->{$nodeName};
+    }
+
+    /**
+     * Sort by provided key
+     *
+     * @param string $key Key name.
+     *
+     * @return Closure
+     */
+    public static function sortBy(string $key) : Closure
+    {
+        return static function ($a, $b) use ($key) {
+            if ($a[$key] === $b[$key]) {
+                return 0;
+            }
+
+            if ($a[$key] > $b[$key]) {
+                return -1;
+            }
+
+            return 1;
+        };
     }
 }
