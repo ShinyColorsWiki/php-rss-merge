@@ -13,69 +13,69 @@ class RSS
      *
      * @var string
      */
-    public string $id;
+    public $id;
 
     /**
      * A site title
      *
      * @var string
      */
-    public string $title;
+    public $title;
 
     /**
      * A site link
      *
      * @var string
      */
-    public string $link;
+    public $link;
 
     /**
      * A site description
      *
      * @var string
      */
-    public string $description;
+    public $description;
 
     /**
      * Links of feed
      *
      * @var string[]
      */
-    public array $feeds;
+    public $feeds;
 
     /**
      * A time to live value
      *
      * @var integer
      */
-    public int $ttl;
+    public $ttl;
 
     /**
      * A xml encoding
      *
      * @var string
      */
-    public string $encoding;
+    public $encoding;
 
     /**
      * A language code
      *
      * @var string
      */
-    public string $lang;
+    public $lang;
 
 
     /**
      * RSS constructor.
      *
-     * @param string   $id          ID of RSS.
-     * @param string   $title       RSS Title.
-     * @param string   $link        RSS Link.
-     * @param string   $description RSS Description.
-     * @param string[] $feeds       RSS Feed List.
-     * @param integer  $ttl         Time-to-live.
-     * @param string   $encoding    Encoding of XML.
-     * @param string   $lang        Language of RSS.
+     * @param string $id ID of RSS.
+     * @param string $title RSS Title.
+     * @param string $link RSS Link.
+     * @param string $description RSS Description.
+     * @param string[] $feeds RSS Feed List.
+     * @param integer $ttl Time-to-live.
+     * @param string $encoding Encoding of XML.
+     * @param string $lang Language of RSS.
      */
     public function __construct(
         string $id,
@@ -83,20 +83,17 @@ class RSS
         string $link,
         string $description,
         array $feeds,
-        int $ttl=3600,
-        string $encoding='UTF-8',
-        string $lang='en'
+        int $ttl = 3600,
+        string $encoding = 'UTF-8',
+        string $lang = 'en'
     ) {
-        $this->id          = $id;
-        $this->title       = $title;
-        $this->link        = $link;
+        $this->id = $id;
+        $this->title = $title;
+        $this->link = $link;
         $this->description = $description;
-        $this->feeds       = $feeds;
-        $this->ttl         = $ttl;
-        $this->encoding    = $encoding;
-        $this->lang        = $lang;
-
-    }//end __construct()
-
-
-}//end class
+        $this->feeds = $feeds;
+        $this->ttl = $ttl;
+        $this->encoding = $encoding;
+        $this->lang = $lang;
+    }
+}

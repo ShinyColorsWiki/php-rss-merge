@@ -13,14 +13,14 @@ class Statics
      *
      * @var string
      */
-    protected static string $generatorName = 'PHP RSS Merger';
+    protected static $generatorName = 'PHP RSS Merger';
 
     /**
      * Program version
      *
      * @var string
      */
-    protected static string $generatorVersion = '0.0.1-dev';
+    protected static $generatorVersion = '0.0.1-dev';
 
 
     /**
@@ -28,11 +28,10 @@ class Statics
      *
      * @return string
      */
-    public static function GENERATOR() : string
+    public static function GENERATOR(): string
     {
-        return self::$generatorName.' '.self::$generatorVersion;
-
-    }//end GENERATOR()
+        return self::$generatorName . ' ' . self::$generatorVersion;
+    }
 
 
     /**
@@ -40,16 +39,15 @@ class Statics
      *
      * @return string
      */
-    public static function currentDirectoryUrl() : string
+    public static function currentDirectoryUrl(): string
     {
-        $path = str_replace($_SERVER['DOCUMENT_ROOT'], '', realpath(__DIR__.'/../'));
+        $path = str_replace($_SERVER['DOCUMENT_ROOT'], '', realpath(__DIR__ . '/../'));
         if (strpos($path, 0) !== '/') {
-            $path = '/'.$path;
+            $path = '/' . $path;
         }
 
-        return self::requestType().'://'.$_SERVER['HTTP_HOST'].str_replace('\\', '/', $path);
-
-    }//end currentDirectoryUrl()
+        return self::requestType() . '://' . $_SERVER['HTTP_HOST'] . str_replace('\\', '/', $path);
+    }
 
 
     /**
@@ -57,15 +55,14 @@ class Statics
      *
      * @return string
      */
-    private static function requestType() : string
+    private static function requestType(): string
     {
         if (isset($_SERVER['HTTPS']) === true && ($_SERVER['HTTPS'] === 'on')) {
             return 'https';
         } else {
             return 'http';
         }
-
-    }//end requestType()
+    }
 
 
     /**
@@ -75,15 +72,14 @@ class Statics
      *
      * @return void
      */
-    public function setLocation(?string $location) : void
+    public function setLocation(?string $location): void
     {
         if ($location === null) {
-            header('Location: '.self::currentDirectoryUrl());
+            header('Location: ' . self::currentDirectoryUrl());
         } else {
-            header('Location: '.$location);
+            header('Location: ' . $location);
         }
-
-    }//end setLocation()
+    }
 
 
     /**
@@ -93,18 +89,15 @@ class Statics
      *
      * @return array
      */
-    public static function beforeRenderFeeds(array $rss) : array
+    public static function beforeRenderFeeds(array $rss): array
     {
         foreach ($rss as &$f) {
-            $feed             = (array) $f;
-            $feed['feeds']    = join('<br />', $f->feeds);
-            $feed['feed_url'] = self::currentDirectoryUrl().'feed.php?feed='.$f->id;
-            $f                = $feed;
+            $feed = (array)$f;
+            $feed['feeds'] = join('<br />', $f->feeds);
+            $feed['feed_url'] = self::currentDirectoryUrl() . 'feed.php?feed=' . $f->id;
+            $f = $feed;
         }
 
         return $rss;
-
-    }//end beforeRenderFeeds()
-
-
-}//end class
+    }
+}

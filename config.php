@@ -1,15 +1,17 @@
 <?php
 
-require __DIR__.'/vendor/autoload.php';
+declare(strict_types=1);
+
+require __DIR__ . '/vendor/autoload.php';
 
 RSSMerger\Initializer::initialize();
 
-use RSSMerger\RSS;
+use Cache\Adapter\Filesystem\FilesystemCachePool;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
-use Cache\Adapter\Filesystem\FilesystemCachePool;
+use RSSMerger\RSS;
 
-$filesystemAdapter = new Local(__DIR__.'/');
+$filesystemAdapter = new Local(__DIR__ . '/');
 $filesystem        = new Filesystem($filesystemAdapter);
 
 $cache = new FilesystemCachePool($filesystem);

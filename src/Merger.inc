@@ -13,21 +13,21 @@ class Merger
      *
      * @var RSS
      */
-    public RSS $rss;
+    public $rss;
 
     /**
      * Retrieved RSS feeds
      *
      * @var array
      */
-    public array $feeds;
+    public $feeds;
 
     /**
      * Cache.
      *
      * @var InternalCache
      */
-    public InternalCache $cache;
+    public $cache;
 
 
     /**
@@ -39,8 +39,7 @@ class Merger
     {
         $this->rss   = $rss;
         $this->cache = new InternalCache($rss->id);
-
-    }//end __construct()
+    }
 
 
     /**
@@ -48,7 +47,7 @@ class Merger
      *
      * @return array
      */
-    public function getFeeds() : array
+    public function getFeeds(): array
     {
         $urls  = $this->rss->feeds;
         $items = [];
@@ -70,8 +69,7 @@ class Merger
 
         usort($items, [&$this, 'sortByDate']);
         return $items;
-
-    }//end getFeeds()
+    }
 
 
     /**
@@ -82,17 +80,14 @@ class Merger
      *
      * @return integer Sort result.
      */
-    private static function sortByDate(array $a, array $b) : int
+    private static function sortByDate(array $a, array $b): int
     {
         if ($a['date'] === $b['date']) {
             return 0;
-        } else if ($a['date'] > $b['date']) {
+        } elseif ($a['date'] > $b['date']) {
             return -1;
         } else {
             return 1;
         }
-
-    }//end sortByDate()
-
-
-}//end class
+    }
+}

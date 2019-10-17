@@ -13,14 +13,14 @@ class InternalCache
      *
      * @var string
      */
-    public string $id;
+    public $id;
 
     /**
      * Expires time
      *
      * @var integer
      */
-    public int $ttl;
+    public $ttl;
 
 
     /**
@@ -29,12 +29,11 @@ class InternalCache
      * @param string  $id  ID of cache.
      * @param integer $ttl Expires time.
      */
-    public function __construct(string $id, int $ttl=3600)
+    public function __construct(string $id, int $ttl = 3600)
     {
         $this->id  = $id;
         $this->ttl = $ttl;
-
-    }//end __construct()
+    }
 
 
     /**
@@ -42,7 +41,7 @@ class InternalCache
      *
      * @return boolean
      */
-    public function checkCache() : bool
+    public function checkCache(): bool
     {
         $item = $GLOBALS['cache']->getItem($this->id);
         if ($GLOBALS['cache']->hasItem($this->id) === true && $item->isHit() === true) {
@@ -50,8 +49,7 @@ class InternalCache
         } else {
             return false;
         }
-
-    }//end checkCache()
+    }
 
 
     /**
@@ -61,14 +59,13 @@ class InternalCache
      *
      * @return void
      */
-    public function setCache(string $string) : void
+    public function setCache(string $string): void
     {
         $item = $GLOBALS['cache']->getItem($this->id);
         $item->set($string);
         $item->expiresAfter($this->ttl);
         $GLOBALS['cache']->save($item);
-
-    }//end setCache()
+    }
 
 
     /**
@@ -80,8 +77,5 @@ class InternalCache
     {
         $item = $GLOBALS['cache']->getItem($this->id);
         return $item->get();
-
-    }//end getCache()
-
-
-}//end class
+    }
+}

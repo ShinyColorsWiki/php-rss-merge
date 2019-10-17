@@ -1,7 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 require './config.php';
-use RSSMerger\{Statics, BaseError};
+
+use RSSMerger\BaseError;
+use RSSMerger\Statics;
 
 try {
     $renderer = include './src/template/index.php';

@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 require './config.php';
 
-use RSSMerger\{Builder, BaseError};
+use RSSMerger\BaseError;
+use RSSMerger\Builder;
 
 $f = $_GET['feed'];
 if (isset($f) === true) {

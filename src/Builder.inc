@@ -2,7 +2,6 @@
 
 namespace RSSMerger;
 
-
 /**
  * Class Builder
  */
@@ -14,7 +13,7 @@ class Builder
      *
      * @var Merger[]
      */
-    public array $lists;
+    public $lists;
 
 
     /**
@@ -30,8 +29,7 @@ class Builder
         }
 
         $this->lists = $lists;
-
-    }//end __construct()
+    }
 
 
     /**
@@ -70,8 +68,5 @@ class Builder
 
         $cache->setCache($output);
         return $output;
-
-    }//end generateOutput()
-
-
-}//end class
+    }
+}

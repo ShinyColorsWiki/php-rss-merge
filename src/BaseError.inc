@@ -15,7 +15,7 @@ class BaseError
      *
      * @var Error|null error
      */
-    public Error $error;
+    public $error;
 
 
     /**
@@ -23,12 +23,11 @@ class BaseError
      *
      * @param Error|null $error Error.
      */
-    public function __construct(?Error $error=null)
+    public function __construct(?Error $error = null)
     {
         $this->error = $error;
         $this->logError();
-
-    }//end __construct()
+    }
 
 
     /**
@@ -39,7 +38,7 @@ class BaseError
      *
      * @return void
      */
-    public function renderHTML(int $code=500, string $message=null) : void
+    public function renderHTML(int $code = 500, string $message = null): void
     {
         http_response_code($code);
         $renderer = include 'template/error.php';
@@ -49,8 +48,7 @@ class BaseError
                 'message' => $this->readMessage($message),
             ]
         );
-
-    }//end renderHTML()
+    }
 
 
     /**
@@ -61,7 +59,7 @@ class BaseError
      *
      * @return void
      */
-    public function renderXML(int $code=500, string $message=null) : void
+    public function renderXML(int $code = 500, string $message = null): void
     {
         http_response_code($code);
         header('Content-Type: application/xml; charset=UTF-8');
@@ -72,8 +70,7 @@ class BaseError
                 'message' => $this->readMessage($message),
             ]
         );
-
-    }//end renderXML()
+    }
 
 
     /**
@@ -83,17 +80,16 @@ class BaseError
      *
      * @return string
      */
-    private function readMessage(?string $message) : string
+    private function readMessage(?string $message): string
     {
         if ($message !== null) {
             return $message;
-        } else if ($this->error !== null) {
+        } elseif ($this->error !== null) {
              return $this->error->getMessage();
         } else {
             return 'Something went wrong';
         }
-
-    }//end readMessage()
+    }
 
 
     /**
@@ -101,11 +97,8 @@ class BaseError
      *
      * @return void
      */
-    private function logError() : void
+    private function logError(): void
     {
         $GLOBALS['log']->error($this->error);
-
-    }//end logError()
-
-
-}//end class
+    }
+}
