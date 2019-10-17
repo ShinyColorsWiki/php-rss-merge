@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace RSSMerger;
 
 /**
@@ -7,7 +9,6 @@ namespace RSSMerger;
  */
 class RSS
 {
-
     /**
      * An identifier
      *
@@ -46,7 +47,7 @@ class RSS
     /**
      * A time to live value
      *
-     * @var integer
+     * @var int
      */
     public $ttl;
 
@@ -66,16 +67,14 @@ class RSS
 
 
     /**
-     * RSS constructor.
-     *
-     * @param string $id ID of RSS.
-     * @param string $title RSS Title.
-     * @param string $link RSS Link.
-     * @param string $description RSS Description.
-     * @param string[] $feeds RSS Feed List.
-     * @param integer $ttl Time-to-live.
-     * @param string $encoding Encoding of XML.
-     * @param string $lang Language of RSS.
+     * @param string   $id          ID of RSS.
+     * @param string   $title       RSS Title.
+     * @param string   $link        RSS Link.
+     * @param string   $description RSS Description.
+     * @param string[] $feeds       RSS Feed List.
+     * @param int      $ttl         Time-to-live.
+     * @param string   $encoding    Encoding of XML.
+     * @param string   $lang        Language of RSS.
      */
     public function __construct(
         string $id,
@@ -87,13 +86,13 @@ class RSS
         string $encoding = 'UTF-8',
         string $lang = 'en'
     ) {
-        $this->id = $id;
-        $this->title = $title;
-        $this->link = $link;
+        $this->id          = $id;
+        $this->title       = $title;
+        $this->link        = $link;
         $this->description = $description;
-        $this->feeds = $feeds;
-        $this->ttl = $ttl;
-        $this->encoding = $encoding;
-        $this->lang = $lang;
+        $this->feeds       = $feeds;
+        $this->ttl         = $ttl;
+        $this->encoding    = $encoding;
+        $this->lang        = $lang;
     }
 }

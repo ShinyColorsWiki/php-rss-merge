@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="{{encoding}}"?>
-<rss version="2.0">
+<rss version="2.0"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+     xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+>
     <channel>
         <title>{{title}}</title>
+        <atom:link href="{{atomlink}}" rel="self" type="application/rss+xml" />
         <link>{{link}}</link>
         <description>{{description}}</description>
-        <pubDate>{{date}}</pubDate>
+        <lastBuildDate>{{buildDate}}</lastBuildDate>
+        <pubDate>{{pubDate}}</pubDate>
         <ttl>{{ttl}}</ttl>
         <generator>{{generator}}</generator>
         <language>{{language}}</language>
@@ -12,9 +21,14 @@
         <item>
             <title>{{title}}</title>
             <link>{{link}}</link>
-            <description><![CDATA[{{description}}]]></description>
+            {{#if dc:creator}}<dc:creator><![CDATA[{{dc:creator}}]]></dc:creator>{{/if}}
             <pubDate>{{pubDate}}</pubDate>
             <guid>{{guid}}</guid>
+            {{#each category}}
+            <category><![CDATA[{{.}}]]></category>
+            {{/each}}
+            <description><![CDATA[{{{description}}}]]></description>
+            {{#if contentEncoded }}<content:encoded><![CDATA[{{{contentEncoded}}}]]></content:encoded>{{/if}}
         </item>
         {{/items}}
         </channel>

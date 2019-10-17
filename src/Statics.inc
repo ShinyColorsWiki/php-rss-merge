@@ -1,13 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace RSSMerger;
+
+use function header;
+use function implode;
+use function realpath;
+use function str_replace;
+use function strpos;
 
 /**
  * Class Statics
  */
 class Statics
 {
-
     /**
      * Program name
      *
@@ -28,7 +35,7 @@ class Statics
      *
      * @return string
      */
-    public static function GENERATOR(): string
+    public static function GENERATOR() : string
     {
         return self::$generatorName . ' ' . self::$generatorVersion;
     }
@@ -39,7 +46,7 @@ class Statics
      *
      * @return string
      */
-    public static function currentDirectoryUrl(): string
+    public static function currentDirectoryUrl() : string
     {
         $path = str_replace($_SERVER['DOCUMENT_ROOT'], '', realpath(__DIR__ . '/../'));
         if (strpos($path, 0) !== '/') {
@@ -55,13 +62,13 @@ class Statics
      *
      * @return string
      */
-    private static function requestType(): string
+    private static function requestType() : string
     {
         if (isset($_SERVER['HTTPS']) === true && ($_SERVER['HTTPS'] === 'on')) {
             return 'https';
-        } else {
-            return 'http';
         }
+
+        return 'http';
     }
 
 
@@ -69,10 +76,8 @@ class Statics
      * Set Location to redirect
      *
      * @param string $location Location to redirect.
-     *
-     * @return void
      */
-    public function setLocation(?string $location): void
+    public function setLocation(?string $location) : void
     {
         if ($location === null) {
             header('Location: ' . self::currentDirectoryUrl());
@@ -81,21 +86,25 @@ class Statics
         }
     }
 
+    public static function getFeedUrl(string $id) : string
+    {
+        return self::currentDirectoryUrl() . 'feed.php?feed=' . $id;
+    }
 
     /**
      * Process of before render feeds
      *
      * @param RSS[] $rss RSS array.
      *
-     * @return array
+     * @return object[]
      */
-    public static function beforeRenderFeeds(array $rss): array
+    public static function beforeRenderFeeds(array $rss) : array
     {
         foreach ($rss as &$f) {
-            $feed = (array)$f;
-            $feed['feeds'] = join('<br />', $f->feeds);
-            $feed['feed_url'] = self::currentDirectoryUrl() . 'feed.php?feed=' . $f->id;
-            $f = $feed;
+            $feed             = (array) $f;
+            $feed['feeds']    = implode('<br />', $f->feeds);
+            $feed['feed_url'] = self::getFeedUrl($f->id);
+            $f                = $feed;
         }
 
         return $rss;

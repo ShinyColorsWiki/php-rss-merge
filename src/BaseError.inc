@@ -1,15 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace RSSMerger;
 
 use Error;
+use function header;
+use function http_response_code;
 
 /**
  * Class BaseError
  */
 class BaseError
 {
-
     /**
      * Error type.
      *
@@ -33,12 +36,10 @@ class BaseError
     /**
      * Render Error page to HTML
      *
-     * @param integer     $code    HTTPCode.
+     * @param int         $code    HTTPCode.
      * @param string|null $message Custom message.
-     *
-     * @return void
      */
-    public function renderHTML(int $code = 500, string $message = null): void
+    public function renderHTML(int $code = 500, ?string $message = null) : void
     {
         http_response_code($code);
         $renderer = include 'template/error.php';
@@ -54,12 +55,10 @@ class BaseError
     /**
      * Render Error page to XML
      *
-     * @param integer     $code    HTTPCode.
+     * @param int         $code    HTTPCode.
      * @param string|null $message Custom message.
-     *
-     * @return void
      */
-    public function renderXML(int $code = 500, string $message = null): void
+    public function renderXML(int $code = 500, ?string $message = null) : void
     {
         http_response_code($code);
         header('Content-Type: application/xml; charset=UTF-8');
@@ -80,24 +79,24 @@ class BaseError
      *
      * @return string
      */
-    private function readMessage(?string $message): string
+    private function readMessage(?string $message) : string
     {
         if ($message !== null) {
             return $message;
-        } elseif ($this->error !== null) {
-             return $this->error->getMessage();
-        } else {
-            return 'Something went wrong';
         }
+
+        if ($this->error !== null) {
+             return $this->error->getMessage();
+        }
+
+        return 'Something went wrong';
     }
 
 
     /**
      * Log error to logger.
-     *
-     * @return void
      */
-    private function logError(): void
+    private function logError() : void
     {
         $GLOBALS['log']->error($this->error);
     }

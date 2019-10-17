@@ -30,7 +30,7 @@ if (isset($f) === true) {
 } else {
     $error = new BaseError();
     $error->renderXML(404, 'Not Found');
-}//end if
+}
 
 unset($error);
 unset($f);

@@ -1,13 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace RSSMerger;
+
+use const DATE_RFC822;
+use function date;
 
 /**
  * Class Builder
  */
 class Builder
 {
-
     /**
      * List of RSS
      *
@@ -17,9 +21,7 @@ class Builder
 
 
     /**
-     * Builder constructor.
-     *
-     * @param array $rssArray RSS Array.
+     * @param RSS[] $rssArray RSS Array.
      */
     public function __construct(array $rssArray)
     {
@@ -39,7 +41,7 @@ class Builder
      *
      * @return string rendered XML.
      */
-    public function generateOutput(string $id)
+    public function generateOutput(string $id) : string
     {
         $merger = $this->lists[$id];
         $rss    = $merger->rss;
@@ -54,9 +56,11 @@ class Builder
         $result = [
             'encoding'    => $rss->encoding,
             'title'       => $rss->title,
+            'atomlink'    => Statics::getFeedUrl($id),
             'link'        => $rss->link,
             'description' => $rss->description,
-            'pubDate'     => date(DATE_RFC822),
+            'buildDate'   => date(DATE_RFC822),
+            'pubDate'     => $feeds[0]['pubDate'],
             'ttl'         => $rss->ttl,
             'generator'   => Statics::GENERATOR(),
             'language'    => $rss->lang,

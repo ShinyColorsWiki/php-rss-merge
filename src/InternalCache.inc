@@ -1,13 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace RSSMerger;
+
+use Cache\Adapter\Common\CacheItem;
 
 /**
  * Class InternalCache
  */
 class InternalCache
 {
-
     /**
      * ID of cache
      *
@@ -18,16 +21,14 @@ class InternalCache
     /**
      * Expires time
      *
-     * @var integer
+     * @var int
      */
     public $ttl;
 
 
     /**
-     * InternalCache constructor.
-     *
-     * @param string  $id  ID of cache.
-     * @param integer $ttl Expires time.
+     * @param string $id  ID of cache.
+     * @param int    $ttl Expires time.
      */
     public function __construct(string $id, int $ttl = 3600)
     {
@@ -38,17 +39,18 @@ class InternalCache
 
     /**
      * Check cache
-     *
-     * @return boolean
      */
-    public function checkCache(): bool
+    public function checkCache() : bool
     {
+        /**
+         * @var CacheItem $item
+         */
         $item = $GLOBALS['cache']->getItem($this->id);
         if ($GLOBALS['cache']->hasItem($this->id) === true && $item->isHit() === true) {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
 
@@ -56,11 +58,12 @@ class InternalCache
      * Set Cache
      *
      * @param string $string Data.
-     *
-     * @return void
      */
-    public function setCache(string $string): void
+    public function setCache(string $string) : void
     {
+        /**
+         * @var CacheItem $item
+         */
         $item = $GLOBALS['cache']->getItem($this->id);
         $item->set($string);
         $item->expiresAfter($this->ttl);
@@ -75,6 +78,9 @@ class InternalCache
      */
     public function getCache()
     {
+        /**
+         * @var CacheItem $item
+         */
         $item = $GLOBALS['cache']->getItem($this->id);
         return $item->get();
     }

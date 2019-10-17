@@ -1,23 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace RSSMerger;
 
-use Monolog\Logger;
 use Monolog\Handler\ErrorLogHandler;
+use Monolog\Logger;
 
 /**
  * Class Initializer
  */
 class Initializer
 {
-
-
     /**
      * Initialize function.
-     *
-     * @return void
      */
-    public static function initialize(): void
+    public static function initialize() : void
     {
         self::logSetup();
     }
@@ -28,7 +26,7 @@ class Initializer
      *
      * @return void;
      */
-    private static function logSetup(): void
+    private static function logSetup() : void
     {
         $logger = new Logger('rss-merger');
 
