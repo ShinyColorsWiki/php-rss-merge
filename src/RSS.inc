@@ -125,18 +125,40 @@ class RSS
                 continue;
             }
 
-            foreach ($xml->channel->item as $item) {
-                $new['title']          = $item->title;
-                $new['link']           = $item->link;
-                $new['category']       = $item->category;
-                $new['pubDate']        = $item->pubDate;
-                $new['guid']           = $item->guid;
-                $new['dc:creator']     = Statics::getNsChild($item, 'dc', 'creator');
-                $new['description']    = $item->description;
-                $new['contentEncoded'] = Statics::getNsChild($item, 'content', 'encoded');
-                $new['date']           = strtotime((string) $item->pubDate);
+            if (isset($xml->channel->item)) {
+                foreach ($xml->channel->item as $item) {
+                    $new['title']          = $item->title;
+                    $new['link']           = $item->link;
+                    $new['category']       = $item->category;
+                    $new['pubDate']        = $item->pubDate;
+                    $new['guid']           = $item->guid;
+                    $new['dc:creator']     = Statics::getNsChild($item, 'dc', 'creator');
+                    $new['description']    = $item->description;
+                    $new['contentEncoded'] = Statics::getNsChild($item, 'content', 'encoded');
+                    $new['date']           = strtotime((string) $item->pubDate);
 
-                array_push($items, $new);
+                    array_push($items, $new);
+                }
+            }else if (isset($xml->entry)) {
+                foreach ($xml->entry as $item) {
+                    if (substr($item->id, 0, strlen('yt:video:')) === 'yt:video:') {
+                        $url = $item->link->attributes();
+                        $videourl = $url->href;
+                        $video = str_replace("https://www.youtube.com/watch?v=","",$videourl);
+                        $arr = (array) $item->link;
+                        $new['title']          = $item->title;
+                        $new['link']           = $videourl;
+                        $new['category']       = $item->category;
+                        $new['pubDate']        = $item->published;
+                        $new['guid']           = $item->id;
+                        $new['dc:creator']     = $item->author->name;
+                        $new['description']    = $item->description;
+                        $new['contentEncoded'] = '<p><iframe width="560" height="315" src="https://www.youtube.com/embed/'.$video.'" frameborder="0" allowfullscreen></iframe></p>';
+                        $new['date']           = strtotime((string) $item->pubDate);
+                    }
+
+                    array_push($items, $new);
+                }
             }
         }
 
