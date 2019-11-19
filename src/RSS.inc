@@ -141,7 +141,7 @@ class RSS
                 }
             }else if (isset($xml->entry)) {
                 foreach ($xml->entry as $item) {
-                    if (substr($item->id, 0, strlen('yt:video:')) === 'yt:video:') {
+                    if (substr((string) $item->id, 0, strlen('yt:video:')) === 'yt:video:') {
                         $url = $item->link->attributes();
                         $videourl = $url->href;
                         $video = str_replace("https://www.youtube.com/watch?v=","",$videourl);
