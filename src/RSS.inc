@@ -155,6 +155,28 @@ class RSS
                         $new['description']    = $item->description;
                         $new['contentEncoded'] = '<p><iframe width="560" height="315" src="https://www.youtube.com/embed/'.$video.'" frameborder="0" allowfullscreen></iframe></p>';
                         $new['date']           = strtotime((string) $item->pubDate);
+                    } elseif (substr((string) $item->id, 0, strlen('tag:github.com,')) === 'tag:github.com,') {
+                        $url = $item->link->attributes();
+                        $link = $url->href;
+                        $description = substr((string) $link, strlen('https://github.com/'));
+                        $description_author = substr($description, 0, strpos($description, '/'));
+                        $description_project = substr($description, strlen($description_author.'/'));
+                        $description_project = substr($description_project, 0, strpos($description_project, '/'));
+                        $description = $description_author.' - '.$description_project;
+                        $content = str_replace('href="/', 'href="https://github.com/', $item->content);
+                        $title = (string) $item->title;
+                        if (strtoupper(substr($title, 0, strlen($description_project))) !== strtoupper($description_project)) {
+                            $title = $description_project.' '.$title;
+                        }
+                        $new['title']          = $title;
+                        $new['link']           = $link;
+                        $new['category']       = $item->category;
+                        $new['pubDate']        = $item->updated;
+                        $new['guid']           = $item->id;
+                        $new['dc:creator']     = $item->author->name;
+                        $new['description']    = $description;
+                        $new['contentEncoded'] = $content;
+                        $new['date']           = strtotime((string) $item->updated);
                     }
 
                     array_push($items, $new);
